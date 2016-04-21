@@ -42,7 +42,7 @@ System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-cen
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'my-app',
-                        template: "\n          <h1>Component Router</h1>\n          <nav>\n            <a [routerLink]=\"['CrisisCenter']\">Crisis Center</a>\n            <a [routerLink]=\"['Heroes']\">Heroes</a>\n          </nav>\n          <md-checkbox>Test</md-checkbox>\n          \n          <router-outlet></router-outlet>",
+                        templateUrl: './app/app.component.html',
                         providers: [dialog_service_1.DialogService, hero_service_1.HeroService],
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),

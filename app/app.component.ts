@@ -10,16 +10,7 @@ import {HeroService}           from './heroes/hero.service';
 
 @Component({
     selector: 'my-app',
-    template: `
-          <h1>Component Router</h1>
-          <nav>
-            <a [routerLink]="['CrisisCenter']">Crisis Center</a>
-            <a [routerLink]="['Heroes']">Heroes</a>
-          </nav>
-          <md-checkbox>Test</md-checkbox>
-          
-          <router-outlet></router-outlet>`
-    ,
+    templateUrl: './app/app.component.html',
     providers:  [DialogService, HeroService],
     directives: [ROUTER_DIRECTIVES]
 
