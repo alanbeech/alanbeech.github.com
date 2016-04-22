@@ -1,10 +1,368 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<h1>Xamarin Forms Image Swipe - iOS, Android and Windows</h1>
 
-</body>
-</html>
+At the time of writing this there is no support for swipe detection in Xamarin Forms directly. I assume it will be added at some point but I needed to be able to detect left, right, up and down swipes on an image on all 3 platforms iOS, Android &amp; Windows UWP.
+<br/>
+<br/>
+In order to do this I created custom renderer in the shared project creating a new image control '
+<b>SwipeableImage</b>' to be used in direct replacement of the 'Image' control adding <b>OnSwipeUp</b>,
+<b>OnSwipeDown</b>, <b>OnSwipeLeft</b> and <b>OnSwipeRight</b> events.<br/>
+<br/>
+The source code for this example can be found on GitHub <a href="http:/#" target="_blank">here</a><br/>
+
+
+<h2>Shared project</h2>
+
+
+<h3>/CustomRender/SwipeableImage.cs</h3>
+<pre>
+      <code class="cs">using System;
+using Xamarin.Forms;
+
+namespace SwipeableImageExample.CustomRenderer
+{
+    public class SwipeableImage : Image
+    {
+        public event EventHandler SwipedUp;
+        public event EventHandler SwipedDown;
+        public event EventHandler SwipedLeft;
+        public event EventHandler SwipedRight;
+
+        public void RaiseSwipedUp()
+        {
+            if (SwipedUp != null)
+                SwipedUp(this, new EventArgs());
+        }
+
+        public void RaiseSwipedDown()
+        {
+            if (SwipedDown != null)
+                SwipedDown(this, new EventArgs());
+        }
+
+        public void RaiseSwipedLeft()
+        {
+            if (SwipedLeft != null)
+                SwipedLeft(this, new EventArgs());
+        }
+
+        public void RaiseSwipedRight()
+        {
+            if (SwipedRight != null)
+                SwipedRight(this, new EventArgs());
+        }
+
+    }
+}</code>
+</pre>
+
+<h3>/SwipeableExamplePage.xaml</h3>
+<pre>
+    <code class="xaml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;ContentPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot;
+             xmlns:customRenderer=&quot;clr-namespace:SwipeableImageExample.CustomRenderer;assembly=SwipeableImageExample&quot;
+             x:Class=&quot;SwipeableImageExample.SwipeableExamplePage&quot;&gt;
+  &lt;Grid&gt;
+    &lt;Grid.RowDefinitions&gt;
+      &lt;RowDefinition&gt;&lt;/RowDefinition&gt;
+      &lt;RowDefinition&gt;&lt;/RowDefinition&gt;
+    &lt;/Grid.RowDefinitions&gt;
+    &lt;customRenderer:SwipeableImage x:Name=&quot;SwipeableImage&quot; Source=&quot;space.jpg&quot; Aspect=&quot;AspectFill&quot; Grid.Row=&quot;0&quot;&gt;&lt;/customRenderer:SwipeableImage&gt;
+    &lt;Label x:Name=&quot;DirectionInfo&quot; Grid.Row=&quot;1&quot; Text=&quot;-&quot; HorizontalTextAlignment=&quot;Center&quot; VerticalTextAlignment=&quot;Center&quot; TextColor=&quot;Black&quot; FontSize=&quot;30&quot; &gt;&lt;/Label&gt;
+  &lt;/Grid&gt;
+&lt;/ContentPage&gt;</code>
+</pre>
+
+<h3>/SwipeableExamplePage.xaml.cs</h3>
+<pre>
+    <code class="cs">using Xamarin.Forms;
+
+namespace SwipeableImageExample
+{
+    public partial class SwipeableExamplePage : ContentPage
+    {
+        public SwipeableExamplePage()
+        {
+            InitializeComponent();
+
+            SwipeableImage.SwipedUp += (sender, args) => { DirectionInfo.Text = "UP"; };
+            SwipeableImage.SwipedDown += (sender, args) => { DirectionInfo.Text = "DOWN"; };
+            SwipeableImage.SwipedLeft += (sender, args) => { DirectionInfo.Text = "LEFT"; };
+            SwipeableImage.SwipedRight += (sender, args) => { DirectionInfo.Text = "RIGHT"; };
+        }
+    }
+}</code>
+</pre>
+
+<h2>iOS Project</h2>
+
+<h3>/CustomeRenderers/SwipeableImageRenderer.cs</h3>
+<pre>
+    <code class="cs">using System;
+using SwipeableImageExample.CustomRenderer;
+using SwipeableImageExample.iOS.CustomRenderers;
+using UIKit;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
+
+[assembly: ExportRenderer(typeof(SwipeableImage), typeof(SwipeableIosImageRenderer))]
+namespace SwipeableImageExample.iOS.CustomRenderers
+{
+    public delegate void ChangedEventHandler(object sender, EventArgs e);
+    public class SwipeableIosImageRenderer : ImageRenderer
+    {
+
+        UISwipeGestureRecognizer swipeUpGestureRecognizer;
+        UISwipeGestureRecognizer swipeDownGestureRecognizer;
+        UISwipeGestureRecognizer swipeLeftGestureRecognizer;
+        UISwipeGestureRecognizer swipeRightGestureRecognizer;
+
+
+        protected override void OnElementChanged(ElementChangedEventArgs&lt;Image&gt; e)
+        {
+            base.OnElementChanged(e);
+
+            swipeUpGestureRecognizer = new UISwipeGestureRecognizer(() =&gt; {
+                var picture = (SwipeableImage)e.NewElement;
+                if (swipeUpGestureRecognizer.Direction == UISwipeGestureRecognizerDirection.Up)
+                    picture.RaiseSwipedUp();
+            });
+            swipeUpGestureRecognizer.Direction = UISwipeGestureRecognizerDirection.Up;
+
+            swipeDownGestureRecognizer = new UISwipeGestureRecognizer(() =&gt; {
+                var picture = (SwipeableImage)e.NewElement;
+                if (swipeDownGestureRecognizer.Direction == UISwipeGestureRecognizerDirection.Down)
+                    picture.RaiseSwipedDown();
+            });
+            swipeDownGestureRecognizer.Direction = UISwipeGestureRecognizerDirection.Down;
+
+            swipeLeftGestureRecognizer = new UISwipeGestureRecognizer(() =&gt; {
+                var picture = (SwipeableImage)e.NewElement;
+                if (swipeLeftGestureRecognizer.Direction == UISwipeGestureRecognizerDirection.Left)
+                    picture.RaiseSwipedLeft();
+            });
+            swipeLeftGestureRecognizer.Direction = UISwipeGestureRecognizerDirection.Left;
+
+            swipeRightGestureRecognizer = new UISwipeGestureRecognizer(() =&gt; {
+                var picture = (SwipeableImage)e.NewElement;
+                if (swipeRightGestureRecognizer.Direction == UISwipeGestureRecognizerDirection.Right)
+                    picture.RaiseSwipedRight();
+            });
+            swipeRightGestureRecognizer.Direction = UISwipeGestureRecognizerDirection.Right;
+
+            if (e.NewElement == null)
+            {
+
+                if (swipeUpGestureRecognizer != null)
+                {
+                    this.RemoveGestureRecognizer(swipeUpGestureRecognizer);
+                }
+                if (swipeDownGestureRecognizer != null)
+                {
+                    this.RemoveGestureRecognizer(swipeDownGestureRecognizer);
+                }
+                if (swipeLeftGestureRecognizer != null)
+                {
+                    this.RemoveGestureRecognizer(swipeLeftGestureRecognizer);
+                }
+                if (swipeRightGestureRecognizer != null)
+                {
+                    this.RemoveGestureRecognizer(swipeRightGestureRecognizer);
+                }
+
+            }
+
+            if (e.OldElement == null)
+            {
+                this.AddGestureRecognizer(swipeUpGestureRecognizer);
+                this.AddGestureRecognizer(swipeDownGestureRecognizer);
+                this.AddGestureRecognizer(swipeLeftGestureRecognizer);
+                this.AddGestureRecognizer(swipeRightGestureRecognizer);
+            }
+        }
+    }
+}</code>
+</pre>
+
+<h2>Android Project</h2>
+
+<h3>/CustomeRenderers/SwipeableImageRenderer.cs</h3>
+
+<pre>
+    <code class="cs">using System;
+using Android.Views;
+using SwipeableImageExample.CustomRenderer;
+using SwipeableImageExample.Droid.CustomRenderers;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.Android;
+
+[assembly: ExportRenderer(typeof(SwipeableImage), typeof(SwipeableDroidImageRenderer))]
+namespace SwipeableImageExample.Droid.CustomRenderers
+{
+
+    public class SwipeableDroidImageRenderer : ImageRenderer
+    {
+        public float X1 { get; set; }
+        public float X2 { get; set; }
+        public float Y1 { get; set; }
+        public float Y2 { get; set; }
+
+        public SwipeableImage SwipeableImage { get; set; }
+
+        public override bool OnTouchEvent(MotionEvent e)
+        {
+
+            if (e.ActionMasked == MotionEventActions.Down)
+            {
+                X1 = e.GetX();
+                Y1 = e.GetY();
+
+                return true;
+            }
+
+            X2 = e.GetX();
+            Y2 = e.GetY();
+
+            var xChange = X1 - X2;
+            var yChange = Y1 - Y2;
+
+            var xChangeSize = Math.Abs(xChange);
+            var yChangeSize = Math.Abs(yChange);
+
+            if (xChangeSize &gt; yChangeSize)
+            {
+                // horizontal
+                if (X1 &gt; X2)
+                {
+                    // left
+                    SwipeableImage.RaiseSwipedLeft();
+                }
+                else
+                {
+                    // right
+                    SwipeableImage.RaiseSwipedRight();
+                }
+            }
+            else
+            {
+                // vertical
+                if (Y1 &gt; Y2)
+                {
+                    // up
+                    SwipeableImage.RaiseSwipedUp();
+                }
+                else
+                {
+                    // down
+                    SwipeableImage.RaiseSwipedDown();
+                }
+            }
+
+            return base.OnTouchEvent(e);
+        }
+
+        protected override void OnElementChanged(ElementChangedEventArgs&lt;Image&gt; ev)
+        {
+            base.OnElementChanged(ev);
+
+            SwipeableImage = (SwipeableImage)ev.NewElement;
+        }
+
+    }
+
+}</code>
+</pre>
+
+<h2>Windows UWP Project</h2>
+
+<h3>/CustomeRenderers/SwipeableImageRenderer.cs</h3>
+
+<pre>
+    <code class="cs">using System;
+using Windows.UI.Xaml.Input;
+using SwipeableImageExample.CustomRenderer;
+using SwipeableImageExample.UWP.CustomRenderers;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.UWP;
+
+[assembly: ExportRenderer(typeof(SwipeableImage), typeof(SwipeableUwpImageRenderer))]
+namespace SwipeableImageExample.UWP.CustomRenderers
+{
+    public delegate void ChangedEventHandler(object sender, EventArgs e);
+
+    public class SwipeableUwpImageRenderer : ImageRenderer
+    {
+        public int X1 { get; set; }
+        public int X2 { get; set; }
+        public int Y1 { get; set; }
+        public int Y2 { get; set; }
+
+        public SwipeableImage SwipeableImage { get; set; }
+
+        protected override void OnElementChanged(ElementChangedEventArgs&lt;Image&gt; e)
+        {
+            base.OnElementChanged(e);
+
+            SwipeableImage = (SwipeableImage)e.NewElement;
+
+            ManipulationMode = ManipulationModes.TranslateX | ManipulationModes.TranslateY;
+            ManipulationStarted += SwipeableUwpImageRenderer_ManipulationStarted;
+            ManipulationCompleted += SwipeableUwpImageRenderer_ManipulationCompleted;
+        }
+
+        private void SwipeableUwpImageRenderer_ManipulationCompleted(object sender, ManipulationCompletedRoutedEventArgs e)
+        {
+            X2 = (int)e.Position.X;
+            Y2 = (int)e.Position.Y;
+
+            var xChange = X1 - X2;
+            var yChange = Y1 - Y2;
+
+            var xChangeSize = Math.Abs(xChange);
+            var yChangeSize = Math.Abs(yChange);
+
+            if (xChangeSize &gt; yChangeSize)
+            {
+                // horizontal
+                if (X1 &gt; X2)
+                {
+                    // left
+                    SwipeableImage.RaiseSwipedLeft();
+                }
+                else
+                {
+                    // right
+                    SwipeableImage.RaiseSwipedRight();
+                }
+            }
+            else
+            {
+                // vertical
+                if (Y1 &gt; Y2)
+                {
+                    // left
+                    SwipeableImage.RaiseSwipedUp();
+                }
+                else
+                {
+                    // right
+                    SwipeableImage.RaiseSwipedDown();
+                }
+            }
+
+
+        }
+
+        private void SwipeableUwpImageRenderer_ManipulationStarted(object sender, ManipulationStartedRoutedEventArgs e)
+        {
+            X1 = (int) e.Position.X;
+            Y1 = (int) e.Position.Y;
+        }
+    }
+}</code>
+</pre>
+
+<br/>
+<br/>
+
+

@@ -1,4 +1,4 @@
-System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-center.component', './heroes/hero-list.component', './heroes/hero-detail.component', './dialog.service', './heroes/hero.service'], function(exports_1, context_1) {
+System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-center.component', './heroes/hero-list.component', './heroes/hero-detail.component', './home/home.component', './about/about.component', './blog/xamarin-forms-image-swipe/xamarin-forms-image-swipe.component', './dialog.service', './heroes/hero.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-cen
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var router_1, core_1, crisis_center_component_1, hero_list_component_1, hero_detail_component_1, dialog_service_1, hero_service_1;
+    var router_1, core_1, crisis_center_component_1, hero_list_component_1, hero_detail_component_1, home_component_1, about_component_1, xamarin_forms_image_swipe_component_1, dialog_service_1, hero_service_1;
     var AppComponent;
     return {
         setters:[
@@ -28,6 +28,15 @@ System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-cen
             },
             function (hero_detail_component_1_1) {
                 hero_detail_component_1 = hero_detail_component_1_1;
+            },
+            function (home_component_1_1) {
+                home_component_1 = home_component_1_1;
+            },
+            function (about_component_1_1) {
+                about_component_1 = about_component_1_1;
+            },
+            function (xamarin_forms_image_swipe_component_1_1) {
+                xamarin_forms_image_swipe_component_1 = xamarin_forms_image_swipe_component_1_1;
             },
             function (dialog_service_1_1) {
                 dialog_service_1 = dialog_service_1_1;
@@ -50,10 +59,13 @@ System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-cen
                         {
                             path: '/crisis-center/...',
                             name: 'CrisisCenter',
-                            component: crisis_center_component_1.CrisisCenterComponent,
-                            useAsDefault: true
+                            component: crisis_center_component_1.CrisisCenterComponent
                         },
                         { path: '/heroes', name: 'Heroes', component: hero_list_component_1.HeroListComponent },
+                        { path: '/home', name: 'Home', component: home_component_1.HomeComponent, useAsDefault: true },
+                        { path: '/about', name: 'About', component: about_component_1.AboutComponent },
+                        { path: '/blog/xamarin-forms-image-swipe', name: 'XamarinFormsImageSwipe', component: xamarin_forms_image_swipe_component_1.XamarinFormsImageSwipeComponent },
+                        //XamarinFormsImageSwipeComponent
                         { path: '/hero/:id', name: 'HeroDetail', component: hero_detail_component_1.HeroDetailComponent },
                         { path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', { id: 3 }] }
                     ]), 

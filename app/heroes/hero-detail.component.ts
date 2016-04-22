@@ -38,11 +38,11 @@ export class HeroDetailComponent implements OnInit  {
         // so that the HeroList component can select that hero.
         // Add a totally useless `foo` parameter for kicks.
         this._router.navigate(['Heroes',  {id: heroId, foo: 'foo'} ]);
-    }
-}
+ }
+ }
 
 
-/*
+ /*
  Copyright 2016 Google Inc. All Rights Reserved.
  Use of this source code is governed by an MIT-style license that
  can be found in the LICENSE file at http://angular.io/license

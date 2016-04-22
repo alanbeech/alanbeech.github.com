@@ -1,7 +1,7 @@
 <div class="container">
 
-    <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                         aria-expanded="false" aria-controls="navbar">
@@ -10,18 +10,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" [routerLink]="['Home']">Alan Beech</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li class="active"><a [routerLink]="['Home']">Home</a></li>
+                    <li><a [routerLink]="['About']">About me</a></li>
+                    <li><a [routerLink]="['CrisisCenter']">Crisis Center</a></li>
+                    <li><a [routerLink]="['Heroes']">Heroes</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                           aria-expanded="false">Dropdown <span class="caret"></span></a>
+                           aria-expanded="false">Blog <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
+                            <li><a [routerLink]="['XamarinFormsImageSwipe']">Xamarin Forms - Image Swipe</a></li>
                             <li><a href="#">Another action</a></li>
                             <li><a href="#">Something else here</a></li>
                             <li role="separator" class="divider"></li>
@@ -37,16 +38,15 @@
                     <li><a href="../navbar-fixed-top/">Fixed top</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
-        </div><!--/.container-fluid -->
+        </div><!--/.container -->
     </nav>
 
-    <h1>Component Router</h1>
-    <nav>
-        <a [routerLink]="['CrisisCenter']">Crisis Center</a>
-        <a [routerLink]="['Heroes']">Heroes</a>
-    </nav>
-    <md-checkbox>Testfhlsdfhsdlfhdusf</md-checkbox>
 
-    <router-outlet></router-outlet>
+    <div class="container">
+
+
+        <router-outlet></router-outlet>
+    </div>
+
 
 </div>

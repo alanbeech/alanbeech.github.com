@@ -1,0 +1,21 @@
+{
+  "name": "AlanBeechBlog",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Alan Beech <alan@beech.me.uk>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/alanbeech/alanbeech.github.com",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "highlightjs": "^9.2.0"
+  }
+}
