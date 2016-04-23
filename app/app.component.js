@@ -1,4 +1,4 @@
-System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-center.component', './heroes/hero-list.component', './heroes/hero-detail.component', './home/home.component', './about/about.component', './blog/xamarin-forms-detect-swipe/xamarin-forms-detect-swipe.component', './dialog.service', './heroes/hero.service'], function(exports_1, context_1) {
+System.register(['angular2/router', 'angular2/core', './home/home.component', './about/about.component', './blog/xamarin-forms-detect-swipe/xamarin-forms-detect-swipe.component', './dialog.service', './heroes/hero.service'], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-cen
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var router_1, core_1, crisis_center_component_1, hero_list_component_1, hero_detail_component_1, home_component_1, about_component_1, xamarin_forms_detect_swipe_component_1, dialog_service_1, hero_service_1;
+    var router_1, core_1, home_component_1, about_component_1, xamarin_forms_detect_swipe_component_1, dialog_service_1, hero_service_1;
     var AppComponent;
     return {
         setters:[
@@ -19,15 +19,6 @@ System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-cen
             },
             function (core_1_1) {
                 core_1 = core_1_1;
-            },
-            function (crisis_center_component_1_1) {
-                crisis_center_component_1 = crisis_center_component_1_1;
-            },
-            function (hero_list_component_1_1) {
-                hero_list_component_1 = hero_list_component_1_1;
-            },
-            function (hero_detail_component_1_1) {
-                hero_detail_component_1 = hero_detail_component_1_1;
             },
             function (home_component_1_1) {
                 home_component_1 = home_component_1_1;
@@ -56,17 +47,15 @@ System.register(['angular2/router', 'angular2/core', './crisis-center/crisis-cen
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.RouteConfig([
-                        {
-                            path: '/crisis-center/...',
-                            name: 'CrisisCenter',
-                            component: crisis_center_component_1.CrisisCenterComponent
-                        },
-                        { path: '/heroes', name: 'Heroes', component: hero_list_component_1.HeroListComponent },
+                        // { 
+                        //     path: '/crisis-center/...',
+                        //     name: 'CrisisCenter',
+                        //     component: CrisisCenterComponent
+                        // },
+                        // {path: '/heroes',   name: 'Heroes',     component: HeroListComponent},
                         { path: '/home', name: 'Home', component: home_component_1.HomeComponent, useAsDefault: true },
                         { path: '/about', name: 'About', component: about_component_1.AboutComponent },
-                        { path: '/blog/xamarin-forms-detect-swipe', name: 'XamarinFormsDetectSwipe', component: xamarin_forms_detect_swipe_component_1.XamarinFormsDetectSwipeComponent },
-                        { path: '/hero/:id', name: 'HeroDetail', component: hero_detail_component_1.HeroDetailComponent },
-                        { path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', { id: 3 }] }
+                        { path: '/blog/xamarin-forms-detect-swipe', name: 'XamarinFormsDetectSwipe', component: xamarin_forms_detect_swipe_component_1.XamarinFormsDetectSwipeComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);

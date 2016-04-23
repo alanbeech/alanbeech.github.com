@@ -22,21 +22,21 @@ import {HeroService}           from './heroes/hero.service';
 })
 @RouteConfig([
 
-    { 
-        path: '/crisis-center/...',
-        name: 'CrisisCenter',
-        component: CrisisCenterComponent
-    },
+    // { 
+    //     path: '/crisis-center/...',
+    //     name: 'CrisisCenter',
+    //     component: CrisisCenterComponent
+    // },
 
-    {path: '/heroes',   name: 'Heroes',     component: HeroListComponent},
+    // {path: '/heroes',   name: 'Heroes',     component: HeroListComponent},
 
     {path: '/home',   name: 'Home',     component: HomeComponent, useAsDefault: true},
     {path: '/about',   name: 'About',     component: AboutComponent},
 
-    {path: '/blog/xamarin-forms-detect-swipe',   name: 'XamarinFormsDetectSwipe',     component: XamarinFormsDetectSwipeComponent},
+    {path: '/blog/xamarin-forms-detect-swipe',   name: 'XamarinFormsDetectSwipe',     component: XamarinFormsDetectSwipeComponent}
 
-    
-    {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
-    {path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', {id:3}]}
+    //
+    // {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
+    // {path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', {id:3}]}
 ])
 export class AppComponent { }
