@@ -1,4 +1,9 @@
-<h1>Xamarin Forms Image Swipe - iOS, Android and Windows</h1>
+<h1 class="pull-left">Xamarin Forms Detect Swipe - iOS, Android and Windows</h1>
+<img class="platforms pull-right" src="/app/images/platfroms-all.png" alt="windows, android and ios logos">
+
+<div style="clear: both"></div>
+<div class="date">23rd April 2016</div>
+
 
 At the time of writing this there is no support for swipe detection in Xamarin Forms directly. I assume it will be added at some point but I needed to be able to detect left, right, up and down swipes on an image on all 3 platforms iOS, Android &amp; Windows UWP.
 <br/>
@@ -7,11 +12,27 @@ In order to do this I created custom renderer in the shared project creating a n
 <b>SwipeableImage</b>' to be used in direct replacement of the 'Image' control adding <b>OnSwipeUp</b>,
 <b>OnSwipeDown</b>, <b>OnSwipeLeft</b> and <b>OnSwipeRight</b> events.<br/>
 <br/>
-The source code for this example can be found on GitHub <a href="http:/#" target="_blank">here</a><br/>
+
+<p>
+    <em>
+        The source code for this example can be found on GitHub <a href="https://github.com/alanbeech/xamarin-forms-swipe" target="_blank">here</a>
+    </em>
+</p>
+
+<br/>
+
+<iframe width="640" height="360" src="https://www.youtube-nocookie.com/embed/m3wPtTURV-Q?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+<br>
+<em>Video of the example solution detailed below running on Android, Windows & iOS devices</em>
 
 
 <h2>Shared project</h2>
 
+<p>
+    I set up a Xamarin Forms project <strong>SwipeableImageExample</strong> giving me a shared project, and Android projech, an iOS project and Windows Uwp project.
+</p>
+
+<p>Firstly I created a subclass of the standard <strong>Image</strong> component in my shared project adding the required events. No implementation is required here as this is implemented per platform using Xamarins dependency service.</p>
 
 <h3>/CustomRender/SwipeableImage.cs</h3>
 <pre>
@@ -55,6 +76,10 @@ namespace SwipeableImageExample.CustomRenderer
 }</code>
 </pre>
 
+<p>
+    I am then able to use that in my applications Xaml just as I would the normal <strong>Image</strong> control.
+</p>
+
 <h3>/SwipeableExamplePage.xaml</h3>
 <pre>
     <code class="xaml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
@@ -72,6 +97,8 @@ namespace SwipeableImageExample.CustomRenderer
   &lt;/Grid&gt;
 &lt;/ContentPage&gt;</code>
 </pre>
+
+<p>Now in my code behind I have I can wire up the events so that when each is fired it displays an appropriate message in the <strong>Label</strong> control at the bottom of the screen.</p>
 
 <h3>/SwipeableExamplePage.xaml.cs</h3>
 <pre>
@@ -95,6 +122,8 @@ namespace SwipeableImageExample
 </pre>
 
 <h2>iOS Project</h2>
+
+<p>In my iOS project I now create an implementation of <strong>SwipeableImage</strong> to be resolved by the dependency service on an iOS device.</p>
 
 <h3>/CustomeRenderers/SwipeableImageRenderer.cs</h3>
 <pre>
@@ -186,6 +215,9 @@ namespace SwipeableImageExample.iOS.CustomRenderers
 
 <h2>Android Project</h2>
 
+<p>In my Android project I now create an implementation of <strong>SwipeableImage</strong> to be resolved by the dependency service on an Android device.</p>
+
+
 <h3>/CustomeRenderers/SwipeableImageRenderer.cs</h3>
 
 <pre>
@@ -275,6 +307,9 @@ namespace SwipeableImageExample.Droid.CustomRenderers
 
 <h2>Windows UWP Project</h2>
 
+<p>In my Windows UWP project I now create an implementation of <strong>SwipeableImage</strong> to be resolved by the dependency service on an Windows device.</p>
+
+
 <h3>/CustomeRenderers/SwipeableImageRenderer.cs</h3>
 
 <pre>
@@ -362,7 +397,19 @@ namespace SwipeableImageExample.UWP.CustomRenderers
 }</code>
 </pre>
 
+<h2>Conclusion</h2>
+
+<p>While its a bit of a shame that this (and other gestures) isn't built in to Xamarin forms (at the time of writing this!) it did provide me an opportunity to explore custom renderers and the dependency service. I spent quite a bit of time trying to find a solution to this prior to writing one myself so I hope this will save someone else this pain.</p>
+
+<p>Thanks for reading this.</p>
+
+<p>Alan</p>
+
+<p>
+    <em>
+        The source code for this example can be found on GitHub <a href="https://github.com/alanbeech/xamarin-forms-swipe" target="_blank">here</a>
+    </em>
+</p>
+
 <br/>
 <br/>
-
-

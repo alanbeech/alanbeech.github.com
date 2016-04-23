@@ -7,7 +7,7 @@ import {HeroDetailComponent}                from './heroes/hero-detail.component
 import {HomeComponent}                      from './home/home.component';
 import {AboutComponent}                     from './about/about.component';
 
-import {XamarinFormsImageSwipeComponent}    from './blog/xamarin-forms-image-swipe/xamarin-forms-image-swipe.component';
+import {XamarinFormsDetectSwipeComponent}    from './blog/xamarin-forms-detect-swipe/xamarin-forms-detect-swipe.component';
 
 import {DialogService}         from './dialog.service';
 import {HeroService}           from './heroes/hero.service';
@@ -33,9 +33,8 @@ import {HeroService}           from './heroes/hero.service';
     {path: '/home',   name: 'Home',     component: HomeComponent, useAsDefault: true},
     {path: '/about',   name: 'About',     component: AboutComponent},
 
-    {path: '/blog/xamarin-forms-image-swipe',   name: 'XamarinFormsImageSwipe',     component: XamarinFormsImageSwipeComponent},
+    {path: '/blog/xamarin-forms-detect-swipe',   name: 'XamarinFormsDetectSwipe',     component: XamarinFormsDetectSwipeComponent},
 
-    //XamarinFormsImageSwipeComponent
     
     {path: '/hero/:id', name: 'HeroDetail', component: HeroDetailComponent},
     {path: '/disaster', name: 'Asteroid', redirectTo: ['CrisisCenter', 'CrisisDetail', {id:3}]}

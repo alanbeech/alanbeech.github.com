@@ -11,30 +11,30 @@ System.register(['angular2/core'], function(exports_1, context_1) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
     var core_1;
-    var XamarinFormsImageSwipeComponent;
+    var XamarinFormsDetectSwipeComponent;
     return {
         setters:[
             function (core_1_1) {
                 core_1 = core_1_1;
             }],
         execute: function() {
-            XamarinFormsImageSwipeComponent = (function () {
-                function XamarinFormsImageSwipeComponent() {
-                    //alert(0);
+            XamarinFormsDetectSwipeComponent = (function () {
+                function XamarinFormsDetectSwipeComponent() {
                 }
-                XamarinFormsImageSwipeComponent.prototype.ngAfterViewChecked = function () {
+                XamarinFormsDetectSwipeComponent.prototype.ngAfterViewChecked = function () {
+                    hljs.initHighlighting.called = false; // makes sure its initialised each time
                     hljs.initHighlighting();
                 };
-                XamarinFormsImageSwipeComponent = __decorate([
+                XamarinFormsDetectSwipeComponent = __decorate([
                     core_1.Component({
-                        templateUrl: './app/blog/xamarin-forms-image-swipe/xamarin-forms-image-swipe.component.html'
+                        templateUrl: './app/blog/xamarin-forms-detect-swipe/xamarin-forms-detect-swipe.component.html'
                     }), 
                     __metadata('design:paramtypes', [])
-                ], XamarinFormsImageSwipeComponent);
-                return XamarinFormsImageSwipeComponent;
+                ], XamarinFormsDetectSwipeComponent);
+                return XamarinFormsDetectSwipeComponent;
             }());
-            exports_1("XamarinFormsImageSwipeComponent", XamarinFormsImageSwipeComponent);
+            exports_1("XamarinFormsDetectSwipeComponent", XamarinFormsDetectSwipeComponent);
         }
     }
 });
-//# sourceMappingURL=xamarin-forms-image-swipe.component.js.map
+//# sourceMappingURL=xamarin-forms-detect-swipe.component.js.map
